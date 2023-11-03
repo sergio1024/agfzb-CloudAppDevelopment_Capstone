@@ -1,22 +1,46 @@
 <html>
 
 <head>
-
-
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'djangoapp/dealer.css' %}">
+    <meta charset="UTF-8">
+    <title>Best Car Dealer</title>
 </head>
 
 <body>
-    <div class="container">
-        <p class="mt-5 h1 text-center">
-            Contacts information
-        </p>
-        <div class="mt-5 h1 text-center">
-            <ul><b>Phone No:</b> 931 001 002</ul>
-            <ul><b>Email:</b> info@bestcardealer.com
-                <a href="mailto:info@bestcardealer.com"></a>
-            </ul>
-            <ul><b>Web Page:</b><a herf="https://www.google.com/">bestcardealer.com</a></ul>
+
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Home Page</a>
+                <a class="navbar-brand" href="{% url 'djangoapp:about' %}">About Us</a>
+            </div>
         </div>
+    </nav>
+
+    <div class="tille">
+        <b class="mt-5 p text-left">
+            <br> Best Car Dealer! <br><br>
+        </b>
+        <p>
+            Contacts page. <br><br>
+        </p>
+    </div>
+
+    <div class="card">
+        <p class="mt-5 p text-left">
+            Contact information:
+        </p>
+        
+        <div class="mt-5 p text-left">
+            <p><b>Phone No:</b> 900 001 002</p>
+            <p><b>Email:</b> info@bestcardealer.tld
+                <a href="mailto:info@bestcardealer.tld"></a></p>
+            <p><b>Web Page:</b><a herf="https://www.google.com/">bestcardealer.tld<br><br><br></a></p>
+        </div>
+    </div>
+
 </body>
 
 </html>

@@ -1,11 +1,39 @@
 <html>
-    <head>
 
+    <head>
+        {% load static %}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="{% static 'djangoapp/dealer.css' %}">
+        <meta charset="UTF-8">
+        <title>Best Car Dealer</title>
     </head>
-    <body>        
-        <h1>
-            Welcome to Best Cars dealership, home to the best cars in North America. We sell domestic and imported cars at reasonable prices.
-        </h1>
+    
+    <body>    
+
+        <nav class="navbar navbar-light bg-light">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Home Page</a>
+                    <a class="navbar-brand" href="{% url 'djangoapp:contact' %}">Contact Us</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="tille">
+            <b class="mt-5 p text-left">
+                <br> Best Car Dealer! <br><br>
+            </b>
+            <p>
+                About Us Page. <br><br>
+            </p>
+        </div>
+
+        <div class="card">
+            <p class="mt-5 p text-left">
+                Welcome to Best Cars dealership, home to the best cars in North America. <br> We sell domestic and imported cars at reasonable prices.<br><br>
+            </p>
+        </div>
+
     </body>
 
 </html>
