@@ -12,6 +12,10 @@ from django.shortcuts import render
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 
+from .restapis import get_dealers_from_cf
+
+
+
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
@@ -96,9 +100,12 @@ def registration_request(request):
 
 # Update the `get_dealerships` view to render the index page with a list of dealerships
 def get_dealerships(request):
-    '''Updates the `get_dealerships` view to render the index page with a list of dealerships'''
-    context = {}
     if request.method == "GET":
+        url = "https://service.eu.apiconnect.ibmcloud.com/gws/apigateway/api/a9220b6d6b26f1eb3b657a98770b743616f7d4cd223b89cd1ca4e88ab49bdb92/api/dealership"
+        # Get dealers from the URL
+        context = {
+            "dealerships": get_dealers_from_cf(url),
+        }
         return render(request, 'djangoapp/index.html', context)
 
 
