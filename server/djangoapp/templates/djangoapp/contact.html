@@ -43,4 +43,10 @@
 
 </body>
 
+{% if error %}
+<script type="text/javascript">
+  alert("{{ error }}");
+</script>
+{% endif %}
+
 </html>
