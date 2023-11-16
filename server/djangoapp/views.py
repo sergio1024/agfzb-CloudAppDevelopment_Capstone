@@ -52,18 +52,18 @@ def login_request(request):
         username = request.POST['username']
         password = request.POST['psw']
         user = authenticate(username=username, password=password)
-        if username == "" or password == "":
-            context['error'] =  ("Forgot your login details? No problem! "
-            "Get in touch with us and "
-            "we will be happy to help.")
-            return render(request, 'djangoapp/contact.html', context)
-        elif user is not None:      
-            login(request, user)
-            return render(request, 'djangoapp/index.html', context)
-        else:
-            return render(request, 'djangoapp/index.html', context)
-    else:
+    if username == "" or password == "":
+        context['error'] =  ("Forgot your login details? No problem! "
+        "Get in touch with us, and "
+        "we will be happy to help you.")
+        return render(request, 'djangoapp/contact.html', context)
+    elif user is not None:    
+        login(request, user)
         return render(request, 'djangoapp/index.html', context)
+    else:
+        context['error'] =  ("Incorrect login details! Don t worry! "
+        "Get in touch with us.")
+        return render(request, 'djangoapp/contact.html', context)
 
 # Create a `logout_request` view to handle sign out request
 # def logout_request(request):
