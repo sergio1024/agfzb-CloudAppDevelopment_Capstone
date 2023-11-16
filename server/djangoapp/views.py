@@ -52,13 +52,12 @@ def login_request(request):
         username = request.POST['username']
         password = request.POST['psw']
         user = authenticate(username=username, password=password)
-
         if username == "" or password == "":
             context['error'] =  ("Forgot your login details? No problem! "
             "Get in touch with us and "
             "we will be happy to help.")
             return render(request, 'djangoapp/contact.html', context)
-        if user is not None:      
+        elif user is not None:      
             login(request, user)
             return render(request, 'djangoapp/index.html', context)
         else:
