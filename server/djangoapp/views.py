@@ -4,8 +4,8 @@ from django.shortcuts import get_object_or_404, render, redirect
 #from .models import related models
 #from .restapis import related methods
 #from django.contrib import messages
-#from datetime import datetime
-#import json
+from datetime import datetime
+import json
 
 import logging
 from django.shortcuts import render
@@ -100,21 +100,19 @@ def registration_request(request):
         return render(request, 'djangoapp/index.html', context)
 
 # Update the `get_dealerships` view to render the index page with a list of dealerships
-#______________________________________________________________
-#=======================================================
+
 def get_dealerships(request):
     if request.method == "GET":
         url = "https://service.eu.apiconnect.ibmcloud.com/gws/apigateway/api/a9220b6d6b26f1eb3b657a98770b743616f7d4cd223b89cd1ca4e88ab49bdb92/api/dealership"
         # Get dealers from the URL
-        dealerships = get_dealers_from_cf(url)
-        # Concat all dealer's short name
-        dealer_names = ' '.join([dealer.short_name for dealer in dealerships])
-        # Return a list of dealer short name
-        return HttpResponse(dealer_names)
+        context = {
+            "dealerships": get_dealers_from_cf(url),
+        }
+        return render(request, 'djangoapp/index.html', context)
+        
 
 # Create a `get_dealer_details` view to render the reviews of a dealer
 # def get_dealer_details(request, dealer_id):
-# ...
 
 def get_dealer_details(request, dealer_id):
     if request.method == "GET":
@@ -125,8 +123,7 @@ def get_dealer_details(request, dealer_id):
             "dealer": get_dealers_from_cf(url_ds)[0],
             "reviews": get_dealer_reviews_from_cf(url_r, dealer_id),
         }
-        #return render(request, 'djangoapp/dealer_details.html', context)
-        return HttpResponse(context)
+        return render(request, 'djangoapp/dealer_details.html', context)
 
 # Create a `add_review` view to submit a review
 # def add_review(request, dealer_id):
