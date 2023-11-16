@@ -117,10 +117,9 @@ def get_dealerships(request):
             }
             return render(request, 'djangoapp/index.html', context)
         except Exception as e:
-            # Se ocorrer um erro, redireciona para uma página de erro
-            print(e)  # Imprime o erro no console
+            # If an error occurs, redirect to an error page
+            print(e)  # Print the error to the console
             return render(request, 'djangoapp/error.html')
-        
 
 # Create a `get_dealer_details` view to render the reviews of a dealer
 # def get_dealer_details(request, dealer_id):
@@ -130,11 +129,16 @@ def get_dealer_details(request, dealer_id):
         url_r = f"https://service.eu.apiconnect.ibmcloud.com/gws/apigateway/api/a9220b6d6b26f1eb3b657a98770b743616f7d4cd223b89cd1ca4e88ab49bdb92/api/review?dealerId={dealer_id}"
         url_ds = f"https://service.eu.apiconnect.ibmcloud.com/gws/apigateway/api/a9220b6d6b26f1eb3b657a98770b743616f7d4cd223b89cd1ca4e88ab49bdb92/api/dealership?dealerId={dealer_id}"
         # Get dealers from the URL
-        context = {
-            "dealer": get_dealers_from_cf(url_ds)[0],
-            "reviews": get_dealer_reviews_from_cf(url_r, dealer_id),
-        }
-        return render(request, 'djangoapp/dealer_details.html', context)
+        try:
+            context = {
+               "dealer": get_dealers_from_cf(url_ds)[0],
+               "reviews": get_dealer_reviews_from_cf(url_r, dealer_id),
+            }
+            return render(request, 'djangoapp/dealer_details.html', context)
+        except Exception as e:
+            # If an error occurs, redirect to an error page
+            print(e)  # Print the error to the console
+            return render(request, 'djangoapp/error.html')
 
 # Create a `add_review` view to submit a review
 # def add_review(request, dealer_id):
@@ -143,12 +147,17 @@ def add_review(request, dealer_id):
     if request.method == "GET":
         url = f"https://service.eu.apiconnect.ibmcloud.com/gws/apigateway/api/a9220b6d6b26f1eb3b657a98770b743616f7d4cd223b89cd1ca4e88ab49bdb92/api/dealership?dealerId={dealer_id}"
         # Get dealers from the URL
-        context = {
-            "cars": CarModel.objects.all(),
-            "dealer": get_dealers_from_cf(url)[0],
-        }
-        print(context)
-        return render(request, 'djangoapp/add_review.html', context)
+        try:
+            context = {
+                "cars": CarModel.objects.all(),
+                "dealer": get_dealers_from_cf(url)[0],
+            }
+            print(context)
+            return render(request, 'djangoapp/add_review.html', context)
+        except Exception as e:
+            # If an error occurs, redirect to an error page
+            print(e)  # Print the error to the console
+            return render(request, 'djangoapp/error.html')
     if request.method == "POST":
         form = request.POST
         review = {
