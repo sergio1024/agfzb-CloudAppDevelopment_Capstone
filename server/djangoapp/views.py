@@ -108,12 +108,18 @@ def registration_request(request):
 
 def get_dealerships(request):
     if request.method == "GET":
-        url = "https://service.eu.apiconnect.ibmcloud.com/gws/apigateway/api/a9220b6d6b26f1eb3b657a98770b743616f7d4cd223b89cd1ca4e88ab49bdb92/api/dealership"
+        url = "https://sevice.eu.apiconnect.ibmcloud.com/gws/apigateway/api/a9220b6d6b26f1eb3b657a98770b743616f7d4cd223b89cd1ca4e88ab49bdb92/api/dealership"
         # Get dealers from the URL
-        context = {
-            "dealerships": get_dealers_from_cf(url),
-        }
-        return render(request, 'djangoapp/index.html', context)
+        try:
+            dealerships = get_dealers_from_cf(url)
+            context = {
+                "dealerships": dealerships,
+            }
+            return render(request, 'djangoapp/index.html', context)
+        except Exception as e:
+            # Se ocorrer um erro, redireciona para uma página de erro
+            print(e)  # Imprime o erro no console
+            return render(request, 'djangoapp/error.html')
         
 
 # Create a `get_dealer_details` view to render the reviews of a dealer
