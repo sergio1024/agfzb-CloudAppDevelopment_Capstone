@@ -35,6 +35,20 @@ def get_request(url, **kwargs):
 # Create a `post_request` to make HTTP POST requests
 # e.g., response = requests.post(url, params=kwargs, json=payload)
 
+def post_request(url, json_payload, **kwargs):
+    print("Payload: ", json_payload, ". Params: ", kwargs)
+    print(f"POST {url}")
+    try:
+        response = requests.post(url, headers={'Content-Type': 'application/json'},
+                                 json=json_payload, params=kwargs)
+    except:
+        # If any error occurs
+        print("Network exception occurred")
+    status_code = response.status_code
+    print("With status {} ".format(status_code))
+    json_data = json.loads(response.text)
+    return json_data
+
 
 # Create a get_dealers_from_cf method to get dealers from a cloud function
 # def get_dealers_from_cf(url, **kwargs):
@@ -100,3 +114,15 @@ def get_dealer_reviews_from_cf(url, dealerId):
 # def analyze_review_sentiments(text):
 # - Call get_request() with specified arguments
 # - Get the returned sentiment label such as Positive or Negative
+
+def analyze_review_sentiments(text):
+    URL = 'https://api.us-east.natural-language-understanding.watson.cloud.ibm.com/instances/4c1dae76-d689-45e0-8340-f55e03dccfc0'
+    API_KEY = os.getenv('NLU_API_KEY')
+    params = json.dumps({"text": text, "features": {"sentiment": {}}})
+    response = requests.post(
+        URL, data=params, headers={'Content-Type': 'application/json'}, auth=HTTPBasicAuth('apikey', API_KEY)
+    )
+    try:
+        return response.json()['sentiment']['document']['label']
+    except KeyError:
+        return 'neutral'
