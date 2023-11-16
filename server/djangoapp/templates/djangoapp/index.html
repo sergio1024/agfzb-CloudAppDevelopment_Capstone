@@ -56,7 +56,7 @@
     <!--Add a dealer table here -->
 
     <div class="container">
-        <table class="table" id="table">
+        <table class="table" id="table" data-filter-control="true">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
@@ -64,7 +64,7 @@
                         <th scope="col">City</th>
                         <th scope="col">Address</th>
                         <th scope="col">Zip</th>
-                        <th scope="col">State</th>
+                        <th data-field="state" data-filter-control="select">State</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -79,9 +79,15 @@
                     </tr>
                     {% endfor %}
                 </tbody>
-            </table>
-            </div>
+        </table>
+    </div>
     
-        </body>
+    </body>
+
+      <script>
+        $(function() {
+            $('#table').bootstrapTable()
+        })
+      </script>
     
     </html>
