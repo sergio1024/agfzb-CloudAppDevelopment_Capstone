@@ -8,7 +8,26 @@
         <title>Best Car Dealer</title>
     </head>
 
-    <body>  
+    <body> 
+        
+        {% if user.is_authenticated %}
+        <li>
+            <a class="btn btn-link" href="#">{{ user.first_name }}({{ user.username }})</a>
+            <a class="btn btn-link" href="{% url 'djangoapp:logout' %}">Logout</a>
+        </li>
+        {% else %}
+        <li>
+            <form class="form-inline" action="{% url 'djangoapp:login' %}" method="POST">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Username" name="username">
+                    <input type="password" class="form-control" placeholder="Password" name="psw">
+                    <button class="btn btn-primary" type="submit">Login</button>
+                    <a class="btn btn-link" href="{% url 'djangoapp:registration' %}">Sign Up</a>
+                </div>
+            </form>
+        </li>
+        {% endif %}
         
         <nav class="navbar navbar-light bg-light">
             <div class="container-fluid">
@@ -30,9 +49,20 @@
         </div>
 
         <div class="card">
-            <p class="mt-3 p text-left">
+            <p class="mt-1 p text-left">
                 <img height="200px" length="150px" src="/media/images/oops01.png"class="card-img-left">
-                <br>An error occurred while accessing data from the database. <br>
-                That's why you were directed to this page. Sorry!<br><br>
+                <br><br> Congratulations, you just found a bug! Or not!<br><br>
+                This page may have appeared for the following reasons: <br><br>
+                 Did you enter the wrong login credentials? <br>
+                 If not, there is probably an error in accessing the database.<br><br>
+                  Please try again! 
             </p>
         </div>
+
+        {% if error %}
+<script type="text/javascript">
+  alert("{{ error }}");
+</script>
+{% endif %}
+
+</html>
