@@ -7,21 +7,22 @@
         <meta charset="UTF-8">
         <title>Best Car Dealer</title>
     </head>
-    
-    <body>    
 
+    <body>  
+        
         <nav class="navbar navbar-light bg-light">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Home Page</a>
                     <a class="navbar-brand" href="{% url 'djangoapp:contact' %}">Contact Us</a>
+                    <a class="navbar-brand" href="{% url 'djangoapp:about' %}">About Us</a>
                 </div>
-            </div>
+            </div>             
         </nav>
 
         <div class="tille">
             <b class="mt-5 p text-left">
-                <br> Best Car Dealer! <br><br> UPS! Something went very wrong...<br><br>
+                <br><br>UPS! Something went very wrong...<br><br>
             </b>
             <p>
                 This is an error page. I would be happier if she hadn't shown up!<br><br>
@@ -29,8 +30,9 @@
         </div>
 
         <div class="card">
-            <p class="mt-5 p text-left">
-                An error occurred while accessing data from the database. <br>
-                 That's why you were directed to this page. Sorry!
+            <p class="mt-3 p text-left">
+                <img height="60px" length="60px" src="/media/emoji/negative.png"class="card-img-left">
+                <br>An error occurred while accessing data from the database. <br>
+                That's why you were directed to this page. Sorry!<br><br>
             </p>
         </div>
