@@ -8,36 +8,14 @@
         <title>Best Car Dealer</title>
     </head>
     
-    <body>  
-        
+    <body>    
+
         <nav class="navbar navbar-light bg-light">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Home Page</a>
                     <a class="navbar-brand" href="{% url 'djangoapp:contact' %}">Contact Us</a>
                 </div>
-                <ul class="nav navbar-nav navbar-right">
-    
-                    {% if user.is_authenticated %}
-                    <li>
-                        <a class="btn btn-link" href="#">{{ user.first_name }}({{ user.username }})</a>
-                        <a class="btn btn-link" href="{% url 'djangoapp:logout' %}">Logout</a>
-                    </li>
-                    {% else %}
-                    <li>
-                        <form class="form-inline" action="{% url 'djangoapp:login' %}" method="POST">
-                            {% csrf_token %}
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Username" name="username">
-                                <input type="password" class="form-control" placeholder="Password" name="psw">
-                                <button class="btn btn-primary" type="submit">Login</button>
-                                <a class="btn btn-link" href="{% url 'djangoapp:registration' %}">Sign Up</a>
-                            </div>
-                        </form>
-                    </li>
-                    {% endif %}
-                </ul>
-    
             </div>
         </nav>
 
@@ -51,9 +29,8 @@
         </div>
 
         <div class="card">
-            <p class="mt-3 p text-left">
-                <img height="190px" length="390px" src="/media/images/cardealer.png"class="card-img-left">
-                <br><br>Welcome to Best Cars dealership, home to the best cars in North America. <br> We sell domestic and imported cars at reasonable prices.<br>
+            <p class="mt-5 p text-left">
+                Welcome to Best Cars dealership, home to the best cars in North America. <br> We sell domestic and imported cars at reasonable prices.<br><br>
             </p>
         </div>
 

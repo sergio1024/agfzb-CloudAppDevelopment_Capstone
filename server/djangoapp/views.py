@@ -42,19 +42,6 @@ def contact(request):
     if request.method == "GET":
         return render(request, 'djangoapp/contact.html', context)
 
-# This view and this page is not part of the exercise,
-# I just thought it would be an effective way to get around with errors
-# without blocking the execution of the code.
-#=======================================================================
-# Create a `error` view to return a static contact page
-#def contact(request):
-def error(request):
-    '''Creates a `error` view to return a static error page'''
-    context = {}
-    if request.method == "GET":
-        return render(request, 'djangoapp/error.html', context)
-#======================================================================
-
 # Create a `login_request` view to handle sign in request
 # def login_request(request):
 # ...
@@ -65,18 +52,13 @@ def login_request(request):
         username = request.POST['username']
         password = request.POST['psw']
         user = authenticate(username=username, password=password)
-    if username == "" or password == "": # In case the fields are empty
-        context['error'] =  ("Forgot your login details? No problem! "
-        "Get in touch with us, and "
-        "we will be happy to help you.")
-        return render(request, 'djangoapp/contact.html', context)
-    elif user is not None:    
-        login(request, user)
+        if user is not None:      
+            login(request, user)
+            return render(request, 'djangoapp/index.html', context)
+        else:
+            return render(request, 'djangoapp/index.html', context)
+    else:
         return render(request, 'djangoapp/index.html', context)
-    else: # In case the credentials are wrong
-        context['error'] =  ("Incorrect login details. Don t worry! "
-        "Please try again.")
-        return render(request, 'djangoapp/error.html', context)
 
 # Create a `logout_request` view to handle sign out request
 # def logout_request(request):
@@ -121,37 +103,27 @@ def registration_request(request):
 
 def get_dealerships(request):
     if request.method == "GET":
-        url = "https://sevice.eu.apiconnect.ibmcloud.com/gws/apigateway/api/a9220b6d6b26f1eb3b657a98770b743616f7d4cd223b89cd1ca4e88ab49bdb92/api/dealership"
+        url = "https://service.eu.apiconnect.ibmcloud.com/gws/apigateway/api/a9220b6d6b26f1eb3b657a98770b743616f7d4cd223b89cd1ca4e88ab49bdb92/api/dealership"
         # Get dealers from the URL
-        try:
-            dealerships = get_dealers_from_cf(url)
-            context = {
-                "dealerships": dealerships,
-            }
-            return render(request, 'djangoapp/index.html', context)
-        except Exception as e:
-            # If an error occurs, redirect to an error page
-            print(e)  # Print the error to the console
-            return render(request, 'djangoapp/error.html')
+        context = {
+            "dealerships": get_dealers_from_cf(url),
+        }
+        return render(request, 'djangoapp/index.html', context)
+        
 
 # Create a `get_dealer_details` view to render the reviews of a dealer
 # def get_dealer_details(request, dealer_id):
 
 def get_dealer_details(request, dealer_id):
     if request.method == "GET":
-        url_r = f"https://sevice.eu.apiconnect.ibmcloud.com/gws/apigateway/api/a9220b6d6b26f1eb3b657a98770b743616f7d4cd223b89cd1ca4e88ab49bdb92/api/review?dealerId={dealer_id}"
+        url_r = f"https://service.eu.apiconnect.ibmcloud.com/gws/apigateway/api/a9220b6d6b26f1eb3b657a98770b743616f7d4cd223b89cd1ca4e88ab49bdb92/api/review?dealerId={dealer_id}"
         url_ds = f"https://service.eu.apiconnect.ibmcloud.com/gws/apigateway/api/a9220b6d6b26f1eb3b657a98770b743616f7d4cd223b89cd1ca4e88ab49bdb92/api/dealership?dealerId={dealer_id}"
         # Get dealers from the URL
-        try:
-            context = {
-               "dealer": get_dealers_from_cf(url_ds)[0],
-               "reviews": get_dealer_reviews_from_cf(url_r, dealer_id),
-            }
-            return render(request, 'djangoapp/dealer_details.html', context)
-        except Exception as e:
-            # If an error occurs, redirect to an error page
-            print(e)  # Print the error to the console
-            return render(request, 'djangoapp/error.html')
+        context = {
+            "dealer": get_dealers_from_cf(url_ds)[0],
+            "reviews": get_dealer_reviews_from_cf(url_r, dealer_id),
+        }
+        return render(request, 'djangoapp/dealer_details.html', context)
 
 # Create a `add_review` view to submit a review
 # def add_review(request, dealer_id):
@@ -160,17 +132,12 @@ def add_review(request, dealer_id):
     if request.method == "GET":
         url = f"https://service.eu.apiconnect.ibmcloud.com/gws/apigateway/api/a9220b6d6b26f1eb3b657a98770b743616f7d4cd223b89cd1ca4e88ab49bdb92/api/dealership?dealerId={dealer_id}"
         # Get dealers from the URL
-        try:
-            context = {
-                "cars": CarModel.objects.all(),
-                "dealer": get_dealers_from_cf(url)[0],
-            }
-            print(context)
-            return render(request, 'djangoapp/add_review.html', context)
-        except Exception as e:
-            # If an error occurs, redirect to an error page
-            print(e)  # Print the error to the console
-            return render(request, 'djangoapp/error.html')
+        context = {
+            "cars": CarModel.objects.all(),
+            "dealer": get_dealers_from_cf(url)[0],
+        }
+        print(context)
+        return render(request, 'djangoapp/add_review.html', context)
     if request.method == "POST":
         form = request.POST
         review = {

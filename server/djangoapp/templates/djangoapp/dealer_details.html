@@ -20,12 +20,13 @@
                 <a class="navbar-brand" href="{% url 'djangoapp:contact' %}">Contact Us</a>
             </div>
             <ul class="nav navbar-nav navbar-right">
-
                 {% if user.is_authenticated %}
                 <li>
                     <a class="btn btn-link" href="#">{{ user.first_name }}({{ user.username }})</a>
                     <a class="btn btn-link" href="{% url 'djangoapp:logout' %}">Logout</a>
-                    <a class="btn btn-link" href="add_review">Add review</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="add_review">Add review</a>
                 </li>
                 {% else %}
                 <li>
@@ -41,16 +42,15 @@
                 </li>
                 {% endif %}
             </ul>
-
         </div>
     </nav>
 
     <div class="tille">
         <b class="mt-5 p text-left">
-            <br> Best Car Dealer! <br><br>
+            <br> Best Car Dealer <br><br>
         </b>
         <p>
-            Reviews Page. <br><br>
+            Reviews Page <br><br>
         </p>
     </div>
 

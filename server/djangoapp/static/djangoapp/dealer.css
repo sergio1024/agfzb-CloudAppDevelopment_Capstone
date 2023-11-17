@@ -6,7 +6,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 body {
   font-family: Arial;
   padding: 10px;
-  background: #d6d6d6;
+  background: #ececec;
 }
 
 /* Header/Blog Title */
@@ -14,7 +14,7 @@ body {
   padding: 30px;
   font-size: 40px;
   text-align: center;
-  background: rgb(255, 255, 255);
+  background: white;
 }
 
 
@@ -41,11 +41,10 @@ body {
 
 /* Add a card effect for articles */
 .card {
-   background-color: rgb(255, 255, 255);
+   background-color: white;
    padding: 20px;
    margin-top: 20px;
 }
-
 
 /* Clear floats after the columns */
 .row:after {
@@ -58,7 +57,7 @@ body {
 .footer {
   padding: 20px;
   text-align: center;
-  background: rgb(255, 255, 255);
+  background: #ddd;
   margin-top: 20px;
 }
 
