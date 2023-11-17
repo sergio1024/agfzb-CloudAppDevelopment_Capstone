@@ -20,6 +20,7 @@
                 <a class="navbar-brand" href="{% url 'djangoapp:contact' %}">Contact Us</a>
             </div>
             <ul class="nav navbar-nav navbar-right">
+
                 {% if user.is_authenticated %}
                 <li>
                     <a class="btn btn-link" href="#">{{ user.first_name }}({{ user.username }})</a>
@@ -40,6 +41,7 @@
                 </li>
                 {% endif %}
             </ul>
+
         </div>
     </nav>
 
