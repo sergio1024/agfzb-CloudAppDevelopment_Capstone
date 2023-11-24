@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+    
 <head>
     <meta charset="UTF-8">
     {% load static %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'djangoapp/dealer.css' %}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -11,20 +13,41 @@
 
 </head>
     <body>
+        <nav class="navbar navbar-light bg-light">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="btn btn-primary" href="{% url 'djangoapp:index' %}">Home Page</a>
+                </div>
+            </div>
+        </nav>
+
+         
+        <!--Page title and text.-->
+        <div class="tille">
+            <b class="mt-5 p text-left">
+                <br><img height="60px" length="60px" src="/media/images/dealer.png">
+                 Best Car Dealer! <br><br>
+            </b>
+            <p>
+                Welcome to our reviews page. <br><br>
+            </p>
+    
+        </div>
+
     <!--Add review form here -->
     <form action="{% url 'djangoapp:add_review' dealer.id %}" method="post">
         <div class="container"> <!--Style root div with .container class -->
             {% csrf_token %}
-            <h1>Add a review about {{ dealer.full_name }}</h1>
+            <P><strong>Please add your review below.</strong></P>
             <hr>
             <div class="form-group">
                 <label for="review"><b>Enter the review content:</b></label>
-                <textarea class="form-control" id="content" name="content" row="2" required></textarea>
+                <textarea class="form-control" id="content" name="content" row="4" required></textarea>
             </div>
             <div class="form-group">
                 <input class="form-check-input" type="checkbox" name="purchasecheck" id="purhcasecheck">
-                <label class="form-check-label" for="purchasecheck">Has purchased the car from {{ dealer.full_name }} ?</label>
-                <small class="form-text text-muted">(select purchased car information below if checked)</small>
+                <label class="form-check-label" for="purchasecheck">Have you purchased the car from {{ dealer.full_name }} ?</label>
+                <small class="form-text text-muted">(Please select car information below if true.)</small>
             </div>
             <div class="form-group">
                 <label for="car"><b>Select your car (model-make-year):</b></label>
@@ -42,10 +65,17 @@
             
         </div>
     </form>
+
+    <footer>
+        <p><br>Copyright © 2023 Best Car Dealer! All rights reserved.</p>
+    </footer>
+
 </body>
+
 <script type="text/javascript">
     $('.date-own').datepicker({
        format: 'mm/dd/yyyy'
      });
 </script>
+
 </html>
