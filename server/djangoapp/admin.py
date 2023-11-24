@@ -5,14 +5,17 @@ from .models import CarMake, CarModel
 
 # CarModelInline class
 class CarModelInline(admin.StackedInline):
+    '''CarModelInline class'''
     model = CarModel
 
 # CarModelAdmin class
 class CarModelAdmin(admin.ModelAdmin):
+    '''CarModelAdmin class'''
     list_display = ('name',)
 
 # CarMakeAdmin class with CarModelInline
 class CarMakeAdmin(admin.ModelAdmin):
+    '''CarMakeAdmin class with CarModelInline'''
     inlines = [CarModelInline]
     list_display = ('name',)
 

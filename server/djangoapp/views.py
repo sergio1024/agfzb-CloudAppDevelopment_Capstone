@@ -1,20 +1,11 @@
 '''Views'''
-from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import get_object_or_404, render, redirect
-#from .models import related models
-#from .restapis import related methods
-#from django.contrib import messages
-from datetime import datetime
-import json
-
 import logging
+from datetime import datetime
 from django.shortcuts import render
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
-
 from .restapis import get_dealers_from_cf, get_dealer_reviews_from_cf, post_request
 from .models import CarModel
-
 
 
 # Get an instance of a logger
@@ -42,6 +33,7 @@ def contact(request):
     if request.method == "GET":
         return render(request, 'djangoapp/contact.html', context)
 
+
 # This view and this page is not part of the exercise,
 # I just thought it would be an effective way to get around with errors
 # without blocking the execution of the code.
@@ -54,6 +46,7 @@ def error(request):
     if request.method == "GET":
         return render(request, 'djangoapp/error.html', context)
 #======================================================================
+
 
 # Create a `login_request` view to handle sign in request
 # def login_request(request):
@@ -81,6 +74,7 @@ def login_request(request):
         "Use our contact page if you have any questions.")
         return render(request, 'djangoapp/error.html', context)
 
+
 # Create a `logout_request` view to handle sign out request
 # def logout_request(request):
 # ...
@@ -90,6 +84,7 @@ def logout_request(request):
     print("Log out the user `{}`".format(request.user.username))
     logout(request)
     return render(request, 'djangoapp/index.html', context)
+
 
 # Create a `registration_request` view to handle sign up request
 # def registration_request(request):
@@ -120,9 +115,10 @@ def registration_request(request):
     else:
         return render(request, 'djangoapp/index.html', context)
 
-# Update the `get_dealerships` view to render the index page with a list of dealerships
 
+# Update the `get_dealerships` view to render the index page with a list of dealerships
 def get_dealerships(request):
+    '''Update the `get_dealerships` view to render the index page with a list of dealerships'''
     if request.method == "GET":
         url = "https://service.eu.apiconnect.ibmcloud.com/gws/apigateway/api/a9220b6d6b26f1eb3b657a98770b743616f7d4cd223b89cd1ca4e88ab49bdb92/api/dealership"
         # Get dealers from the URL
@@ -137,10 +133,11 @@ def get_dealerships(request):
             print(e)  # Print the error to the console
             return render(request, 'djangoapp/error.html')
 
+
 # Create a `get_dealer_details` view to render the reviews of a dealer
 # def get_dealer_details(request, dealer_id):
-
 def get_dealer_details(request, dealer_id):
+    '''Create a `get_dealer_details` view to render the reviews of a dealer'''
     if request.method == "GET":
         url_r = f"https://service.eu.apiconnect.ibmcloud.com/gws/apigateway/api/a9220b6d6b26f1eb3b657a98770b743616f7d4cd223b89cd1ca4e88ab49bdb92/api/review?dealerId={dealer_id}"
         url_ds = f"https://service.eu.apiconnect.ibmcloud.com/gws/apigateway/api/a9220b6d6b26f1eb3b657a98770b743616f7d4cd223b89cd1ca4e88ab49bdb92/api/dealership?dealerId={dealer_id}"
@@ -156,10 +153,11 @@ def get_dealer_details(request, dealer_id):
             print(e)  # Print the error to the console
             return render(request, 'djangoapp/error.html')
 
+
 # Create a `add_review` view to submit a review
 # def add_review(request, dealer_id):
-# ...
 def add_review(request, dealer_id):
+    '''Create a `add_review` view to submit a review'''
     if request.method == "GET":
         url = f"https://service.eu.apiconnect.ibmcloud.com/gws/apigateway/api/a9220b6d6b26f1eb3b657a98770b743616f7d4cd223b89cd1ca4e88ab49bdb92/api/dealership?dealerId={dealer_id}"
         # Get dealers from the URL
