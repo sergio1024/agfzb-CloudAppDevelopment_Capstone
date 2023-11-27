@@ -3,7 +3,6 @@ import os
 import requests
 from requests.auth import HTTPBasicAuth
 from .models import CarDealer, DealerReview
-from .models import CarDealer
 
 
 # Create a `get_request` to make HTTP GET requests
@@ -13,11 +12,12 @@ def get_request(url, **kwargs):
     '''Create a `get_request` to make HTTP GET requests'''
     print(kwargs)
     print("GET from {} ".format(url))
+    response = None
     try:
         # Call get method of requests library with URL and parameters
         response = requests.get(url, headers={'Content-Type': 'application/json'},
                                     params=kwargs)
-    except:
+    except requests.exceptions.RequestException:
         # If any error occurs
         print("Network exception occurred")
     status_code = response.status_code
@@ -32,10 +32,11 @@ def post_request(url, json_payload, **kwargs):
     '''Create a `post_request` to make HTTP POST requests'''
     print("Payload: ", json_payload, ". Params: ", kwargs)
     print(f"POST {url}")
+    response = None
     try:
         response = requests.post(url, headers={'Content-Type': 'application/json'},
                                  json=json_payload, params=kwargs)
-    except:
+    except requests.exceptions.RequestException:
         # If any error occurs
         print("Network exception occurred")
     status_code = response.status_code

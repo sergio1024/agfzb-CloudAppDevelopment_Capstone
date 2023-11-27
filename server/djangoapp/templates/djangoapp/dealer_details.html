@@ -53,11 +53,13 @@
         </b>
         <p>
             Welcome to our comments page. <br>
-        </p>
+        </p>    
         {% for review in reviews %}
         <p>If you contact us, please use this ID to identify the seller. <strong>ID No: {{review.id}}</strong> <br></p>
+        <hr>
         {% endfor %} {% if reviews|length == 0 %} 
         <p> OOPS! </p>
+        <hr>
         {% endif %}
     
     </div>
