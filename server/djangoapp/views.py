@@ -120,7 +120,7 @@ def registration_request(request):
 def get_dealerships(request):
     '''Update the `get_dealerships` view to render the index page with a list of dealerships'''
     if request.method == "GET":
-        url = "https://service.eu.apiconnect.ibmcloud.com/gws/apigateway/api/a9220b6d6b26f1eb3b657a98770b743616f7d4cd223b89cd1ca4e88ab49bdb92/api/dealership"
+        url = "https://eu-gb.functions.appdomain.cloud/api/v1/web/083e1099-73a9-4b54-b7a4-454021498f80/api/dealerships.json"
         # Get dealers from the URL
         try:
             dealerships = get_dealers_from_cf(url)
